@@ -50,7 +50,7 @@ public class DefaultBorderFormatter implements BorderFormatter {
     if (segments == null || segments.length == 0) {
       return "";
     }
-
+    //声明一个新的数组
     String[] nonNullSegments = new String[segments.length];
     int nonNullCount = 0;
     for (String segment : segments) {
@@ -83,13 +83,17 @@ public class DefaultBorderFormatter implements BorderFormatter {
    * @return the message with {@value #VERTICAL_BORDER_CHAR} in the start of each line
    */
   private static String appendVerticalBorder(String msg) {
+    //初始化容量，避免追加内容时进行多次扩容
     StringBuilder borderedMsgBuilder = new StringBuilder(msg.length() + 10);
+    //将传入的msg按照系统默认的换行符分割成多行，并保存到lines中
     String[] lines = msg.split(SystemCompat.lineSeparator);
     for (int i = 0, N = lines.length; i < N; i++) {
       if (i != 0) {
+        //如果当前不是第一行，则追加一个行分割符
         borderedMsgBuilder.append(SystemCompat.lineSeparator);
       }
       String line = lines[i];
+      //在每行的前面加一个垂直边框
       borderedMsgBuilder.append(VERTICAL_BORDER_CHAR).append(line);
     }
     return borderedMsgBuilder.toString();
